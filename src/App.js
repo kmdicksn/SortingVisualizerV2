@@ -75,7 +75,6 @@ function App() {
 			await new Promise(r => setTimeout(r, delay));
 			setData(Object.assign({}, genData));
 		}
-		return;
 	}
 
 	return (
@@ -84,8 +83,8 @@ function App() {
 				<Header className="header">
 					<div className="logo"/>
 					<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '0' ]}>
-						<Menu.Item key="0" onClick={(key) => {setSorting(key);}}>Bubble Sort</Menu.Item>
-						<Menu.Item key="1" onClick={(key) => {setSorting(key);}}>Selection Sort</Menu.Item>
+						<Menu.Item key={'0'} onClick={(key) => {setSorting(key.key);}}>Bubble Sort</Menu.Item>
+						<Menu.Item key={'1'} onClick={(key) => {setSorting(key.key);}}>Selection Sort</Menu.Item>
 						{/*<Menu.Item key="3">nav 3</Menu.Item>*/}
 					</Menu>
 				</Header>
