@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Layout, Menu, Slider, Button } from 'antd';
-import randomize from './algorithms/Randomize';
+import { randomizeChart, setColor, compareColor } from './algorithms/Util';
 import bubbleSort from './algorithms/BubbleSort';
 import selectionSort from './algorithms/SelectionSort';
 import VisualizerChart from './components/VisualizerChart';
@@ -19,11 +19,11 @@ const MenuItem = styled.div`
   background-color: white;
 `;
 
-const genData = {
+let genData = {
 	labels: [ '', '', '', '', '', '', '', '', '', '' ],
 	datasets: [
 		{
-			backgroundColor: 'blue',
+			backgroundColor: ['blue','blue','blue','blue','blue','blue','blue','blue','blue','blue'],
 			label: '',
 			data: [ 12, 19, 3, 5, 2, 3, 20, 13, 20, 5 ],
 			borderWidth: 1,
@@ -32,12 +32,17 @@ const genData = {
 };
 
 const options = {
-	legend: {
-		display: false,
+	plugins: {
+		legend: {
+			display: false,
+		},
+		tooltip: {
+			enabled: false
+		},
 	},
 	animation: {
-		duration: 0
-	}
+		duration: 0,
+	},
 };
 
 function App() {
@@ -56,12 +61,12 @@ function App() {
 
 	const countSliderUpdate = (value) => {
 		setCount(value);
-		setData(Object.assign({}, randomize(genData, count, n)));
+		setData(Object.assign({}, randomizeChart(genData, count, n)));
 	};
 
 	const maxValueSliderUpdate = (value) => {
 		setN(value + 1);
-		setData(Object.assign({}, randomize(genData, count, n)));
+		setData(Object.assign({}, randomizeChart(genData, count, n)));
 	};
 
 	const speedSliderUpdate = (value) => {
@@ -69,9 +74,9 @@ function App() {
 	}
 
 	async function sortingAndDisplay() {
-		let sortingSteps = algorithms[sorting](genData.datasets[0]?.data);
+		let sortingSteps = algorithms[sorting](genData);
 		while (sortingSteps.length > 0) {
-			genData.datasets[0].data = sortingSteps.shift();
+			genData = sortingSteps.shift();
 			await new Promise(r => setTimeout(r, delay));
 			setData(Object.assign({}, genData));
 		}
@@ -108,7 +113,7 @@ function App() {
 							</MenuItem>
 							<MenuItem>
 								<h4>Speed:</h4>
-								<Slider disabled={loading} min={100} max={1000} defaultValue={500} step={100}
+								<Slider disabled={loading} min={100} max={5000} defaultValue={500} step={100}
 										onChange={speedSliderUpdate} onAfterChange={speedSliderUpdate}/>
 							</MenuItem>
 							{/*<MenuItem>*/}
@@ -123,7 +128,7 @@ function App() {
 							</MenuItem>
 							<MenuItem>
 								<Button loading={loading} onClick={() => {
-									setData(Object.assign({}, randomize(genData, count, n)));
+									setData(Object.assign({}, randomizeChart(genData, count, n)));
 								}}>Randomize</Button>
 							</MenuItem>
 						</Menu>
