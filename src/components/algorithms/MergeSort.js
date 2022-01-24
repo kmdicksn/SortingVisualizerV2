@@ -1,55 +1,37 @@
+let mainChart;
+let chartSortArray = [];
+
+/*
+Step-by-step sorting using Merge Sort
+@param  {Object}   data				 The chart to be randomized
+@return [{Object}] chartSortOrder    The step-by-step array of sorting steps to sorted array
+ */
 const mergeSort = (chart) => {
-	return mergeSortHelper(chart.datasets[0].data.length, 0, chart.datasets[0].data.length - 1)
+	mainChart = chart;
+	return mergeSortHelper(chart);
 }
 
-const mergeSortHelper = (chart, left, right) => {
-	if (left >= right) {
-		return;
-	}
-	const middle = left + ((left + right) / 2);
-	mergeSortHelper(chart, left, middle);
-	mergeSortHelper(chart, middle + 1, right);
-	merge(chart, left, middle, right);
+const mergeSortHelper = (chart) => {
+	if (chart.datasets[0].data.length < 2) return chartSortArray;
+
+	const middle = chart.datasets[0].data.length / 2;
+
+	const left = chart.datasets[0].data.splice(0, middle);
+	return merge(mergeSortHelper(left), mergeSortHelper(chart));
 }
 
-const merge = (chart, left, middle, right) => {
-	const n1 = middle - left + 1;
-	const n2 = right - middle;
-	let leftArray = new Array(n1);
-	let rightArray = new Array(n2);
+const merge = (left, right) => {
+	let array = [];
 
-	for (let i = 0; i < n1; i++)
-		leftArray[i] = chart[left + i];
-	for (let j = 0; j < n2; j++)
-		rightArray[j] = chart[middle + 1 + j];
-
-	let i = 0;
-	let j = 0;
-	let k = left;
-
-	while (i < n1 && j < n2) {
-		if (leftArray[i] <= rightArray[j]) {
-			chart[k] = leftArray[i];
-			i++;
+	while (left.length && right.length) {
+		if (left[0] < right[0]) {
+			array.push(left.shift());
+		} else {
+			array.push(right.shift());
 		}
-		else {
-			chart[k] = rightArray[j];
-			j++;
-		}
-		k++;
 	}
-
-	while (i < n1) {
-		chart[k] = leftArray[i];
-		i++;
-		k++;
-	}
-
-	while (j < n2) {
-		chart[k] = rightArray[j];
-		j++;
-		k++;
-	}
+	console.log(array);
+	return [ ...array, ...left, ...right ];
 }
 
 export default mergeSort;

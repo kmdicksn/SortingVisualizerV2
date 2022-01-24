@@ -95,7 +95,7 @@ function App() {
 						<Menu.Item key={'0'} onClick={(key) => {setSorting(key.key);}}>Bubble Sort</Menu.Item>
 						<Menu.Item key={'1'} onClick={(key) => {setSorting(key.key);}}>Selection Sort</Menu.Item>
 						<Menu.Item key={'2'} onClick={(key) => {setSorting(key.key);}}>Insertion Sort</Menu.Item>
-						<Menu.Item key={'3'} onClick={(key) => {setSorting(key.key);}}>Merge Sort</Menu.Item>
+						{/*<Menu.Item key={'3'} onClick={(key) => {setSorting(key.key);}}>Merge Sort</Menu.Item>*/}
 					</Menu>
 				</Header>
 				<Layout>
@@ -147,7 +147,7 @@ function App() {
 								minHeight: 280,
 							}}
 						>
-							<VisualizerChart data={data} options={options} ref={visualizerRef}/>
+							<VisualizerChart data={data} options={options} />
 						</Content>
 						<Footer>Created by Dickson Ngan</Footer>
 					</Layout>

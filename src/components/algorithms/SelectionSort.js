@@ -10,7 +10,6 @@ const selectionSort = (chart) => {
 	// The step-by-step sorting data set object
 	let chartSortOrder = [];
 	let tempArray;
-	console.log("hi" + chart.datasets[0].data.length);
 
 	for (let i = 0; i < chart.datasets[0].data.length; i++) {
 		// Finding the smallest number in the subarray
@@ -29,7 +28,7 @@ const selectionSort = (chart) => {
 			chart.datasets[0].data[min] = temp;
 			// add steps to array
 			tempArray = [];
-			chartSortOrder.push(JSON.parse(JSON.stringify(chart)))
+			chartSortOrder.push(JSON.parse(JSON.stringify(chart)));
 		}
 	}
 
