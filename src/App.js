@@ -4,9 +4,11 @@ import 'antd/dist/antd.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Layout, Menu, Slider, Button } from 'antd';
-import { randomizeChart, setColor, compareColor } from './algorithms/Util';
-import bubbleSort from './algorithms/BubbleSort';
-import selectionSort from './algorithms/SelectionSort';
+import { randomizeChart, setColor, compareColor } from './components/utility/Util';
+import bubbleSort from './components/algorithms/BubbleSort';
+import selectionSort from './components/algorithms/SelectionSort';
+import insertionSort from './components/algorithms/InsertionSort';
+import mergeSort from './components/algorithms/MergeSort'
 import VisualizerChart from './components/VisualizerChart';
 import styled from 'styled-components';
 import { clearCanvas } from 'chart.js/helpers';
@@ -57,6 +59,8 @@ function App() {
 	const algorithms = [
 		bubbleSort,
 		selectionSort,
+		insertionSort,
+		mergeSort,
 	];
 
 	const countSliderUpdate = (value) => {
@@ -90,7 +94,8 @@ function App() {
 					<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '0' ]}>
 						<Menu.Item key={'0'} onClick={(key) => {setSorting(key.key);}}>Bubble Sort</Menu.Item>
 						<Menu.Item key={'1'} onClick={(key) => {setSorting(key.key);}}>Selection Sort</Menu.Item>
-						{/*<Menu.Item key="3">nav 3</Menu.Item>*/}
+						<Menu.Item key={'2'} onClick={(key) => {setSorting(key.key);}}>Insertion Sort</Menu.Item>
+						<Menu.Item key={'3'} onClick={(key) => {setSorting(key.key);}}>Merge Sort</Menu.Item>
 					</Menu>
 				</Header>
 				<Layout>

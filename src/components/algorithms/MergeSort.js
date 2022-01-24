@@ -1,12 +1,12 @@
 const mergeSort = (chart) => {
-	return mergeSortHelper(chart, 0, chart.length - 1)
+	return mergeSortHelper(chart.datasets[0].data.length, 0, chart.datasets[0].data.length - 1)
 }
 
 const mergeSortHelper = (chart, left, right) => {
 	if (left >= right) {
 		return;
 	}
-	const middle = (left + right) / 2;
+	const middle = left + ((left + right) / 2);
 	mergeSortHelper(chart, left, middle);
 	mergeSortHelper(chart, middle + 1, right);
 	merge(chart, left, middle, right);

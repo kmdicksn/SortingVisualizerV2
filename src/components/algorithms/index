@@ -1,0 +1,5 @@
+import insertionSort from './InsertionSort';
+import bubbleSort from './BubbleSort';
+import selectionSort from './SelectionSort';
+
+export { selectionSort, insertionSort, bubbleSort };

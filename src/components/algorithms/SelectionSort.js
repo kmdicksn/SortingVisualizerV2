@@ -10,6 +10,7 @@ const selectionSort = (chart) => {
 	// The step-by-step sorting data set object
 	let chartSortOrder = [];
 	let tempArray;
+	console.log("hi" + chart.datasets[0].data.length);
 
 	for (let i = 0; i < chart.datasets[0].data.length; i++) {
 		// Finding the smallest number in the subarray
@@ -21,7 +22,7 @@ const selectionSort = (chart) => {
 				min = j;
 			}
 		}
-		if (min != i) {
+		if (min !== i) {
 			// Swapping the elements
 			let temp = chart.datasets[0].data[i];
 			chart.datasets[0].data[i] = chart.datasets[0].data[min];
